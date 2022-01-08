@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS items CASCADE;
 
 CREATE TABLE items (
   id SERIAL PRIMARY KEY NOT NULL,
-  user_id INTEGER REFERENCES users(id),
+  owner_id INTEGER REFERENCES users(id),
   title VARCHAR(50) NOT NULL,
   location VARCHAR(50),
   price SMALLINT NOT NULL,
