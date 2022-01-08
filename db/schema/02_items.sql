@@ -10,5 +10,5 @@ CREATE TABLE items (
   description VARCHAR(250) NOT NULL,
   thumbnail_photo_url VARCHAR(1000) NOT NULL,
   date_posted DATE,
-  date_sold DATE DEFAULT NULL,
+  date_sold DATE DEFAULT NULL
 );
