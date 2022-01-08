@@ -9,6 +9,6 @@ CREATE TABLE items (
   price SMALLINT NOT NULL,
   description VARCHAR(250) NOT NULL,
   thumbnail_photo_url VARCHAR(1000) NOT NULL,
-  date_posted TIMESTAMP,
-  date_sold TIMESTAMP DEFAULT NULL,
+  date_posted DATE,
+  date_sold DATE DEFAULT NULL,
 );
