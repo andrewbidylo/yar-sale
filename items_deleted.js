@@ -11,42 +11,20 @@ const router  = express.Router();
 
 module.exports = (db) => {
 
-//--Login--//
-
-  router.get('/login/:id', (req, res) => {
-  const userType = req.params.id === 1 ? 'buyer' : 'seller';
-  req.session.user_id = req.params.id;
-  req.session.user_type = userType;
-  res.redirect('/');
-});
-
   //--GET ALL ITEMS--//
 
   router.get("/", (req, res) => {
-    const queryParams = [];
-    const { minimum_price, maximum_price } = req.query;
-
-    let queryString = `
+    let query = `
     SELECT *
     FROM items
-    WHERE 1 = 1`
-
-    if (minimum_price) {
-      queryParams.push(parseInt(minimum_price));
-      queryString += ` AND price >= $${queryParams.length}`;
-    }
-
-    if (maximum_price){
-      queryParams.push(parseInt(maximum_price));
-      queryString += ` AND price <= $${queryParams.length}`;
-    }
-
-   queryString += `ORDER BY price, title;`;
-
-    db.query(queryString, queryParams)
+    ORDER BY date_posted DESC, title;`;
+    console.log(req.query);
+    db.query(query)
       .then(data => {
         const items = data.rows;
-        res.send({ items });
+        // res.send({ items });
+        res.render('items', items);
+        console.log('ITEMS');
       })
       .catch(err => {
         res
@@ -55,18 +33,20 @@ module.exports = (db) => {
       });
   });
 
-  //--GET ONE ITEM--//
+  // //--GET ONE ITEM--//
 
-  router.get("/:id", (req, res) => {
+  router.get("/:id/:id", (req, res) => {
     const id = req.params.id
     let query = `
     SELECT *
     FROM items
     WHERE id = 1;`;
+    console.log(req.params.id);
     db.query(query)
       .then(data => {
         const items = data.rows;
         res.send({ items });
+        console.log('1 ITEM');
       })
       .catch(err => {
         res
@@ -97,31 +77,31 @@ module.exports = (db) => {
   // });
 
 
-  //--GET ALL FAVES--// in user.js file move
+  // //--GET ALL FAVES--// in user.js file move
 
-  router.get("/:id/favourites", (req, res) => {
-    let query = `
-    SELECT items.*
-    FROM items
-    JOIN favourites ON item_id = items.id
-    JOIN users ON owner_id = users.id
-    WHERE user_id = 1
-    ORDER BY items.date_posted, items.title;`;
+  // router.get("/:id/favourites", (req, res) => {
+  //   let query = `
+  //   SELECT items.*
+  //   FROM items
+  //   JOIN favourites ON item_id = items.id
+  //   JOIN users ON owner_id = users.id
+  //   WHERE user_id = 1
+  //   ORDER BY items.date_posted, items.title;`;
 
-    db.query(query)
-      .then(data => {
-        const items = data.rows;
-        res.send({ items });
-        console.log('FAVE ITEMS LIST');
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
+  //   db.query(query)
+  //     .then(data => {
+  //       const items = data.rows;
+  //       res.send({ items });
+  //       console.log('FAVE ITEMS LIST');
+  //     })
+  //     .catch(err => {
+  //       res
+  //         .status(500)
+  //         .json({ error: err.message });
+  //     });
+  // });
 
-  //--ADD TO FAVES--// in favourites.js, pass favourite obj data into body:
+  //--ADD TO FAVES--// in favourites.js, pass favourite obj data into body: user_id & item_id
 
   router.post("/favourites", (req, res) => {
     let query = `
@@ -141,7 +121,7 @@ module.exports = (db) => {
       });
   });
 
-//--DELETE FROM FAVES--//
+//--DELETE FROM FAVES--// in favourites.js
 
   router.delete("/favourites/:id", (req, res) => {
     let query = `
@@ -163,7 +143,7 @@ module.exports = (db) => {
 
   //--GET ADD NEW ITEM FORM--//
 
-  router.get("/new") //user id passed through body
+  router.get('/new') //user id passed through body
   //res.render form
 
   //--ADD NEW ITEM--//
@@ -210,3 +190,12 @@ module.exports = (db) => {
 
   return router;
 };
+
+// $.ajax({
+//   url: 'test.html',
+//   type: 'DELETE',
+//   data: {},  data from rec.body
+//   success: function (result) {
+//     // Do something with the result
+//   }
+// });
