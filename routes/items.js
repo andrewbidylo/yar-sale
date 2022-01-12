@@ -41,12 +41,14 @@ module.exports = (db) => {
       queryString += ` AND price <= $${queryParams.length}`;
     }
 
-   queryString += `ORDER BY price, title;`;
+  queryString += `ORDER BY price, title;`;
 
     db.query(queryString, queryParams)
       .then(data => {
         const items = data.rows;
-        res.send({ items });
+        console.log(items);
+        res.render('index', { items });
+        //res.send({ items });
       })
       .catch(err => {
         res

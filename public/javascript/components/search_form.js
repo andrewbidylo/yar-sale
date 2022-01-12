@@ -10,7 +10,7 @@ $(() => {
     const data = $(this).serialize();
 
     getAllListings(data).then(function( json ) {
-      propertyListings.addProperties(json.properties);
+      itemListings.addItems(json.properties);
       views_manager.show('listings');
     });
   });

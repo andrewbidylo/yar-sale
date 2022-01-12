@@ -48,28 +48,28 @@ $(document).ready(()=>{
   });
 
   $("header").on("click", '.my_reservations_button', function() {
-    propertyListings.clearListings();
+    itemListings.clearListings();
     getAllItems()
       .then(function(json) {
-        propertyListings.addProperties(json.reservations, true);
+        itemListings.addItems(json.reservations, true);
         views_manager.show('listings');
       })
       .catch(error => console.error(error));
   });
   $("header").on("click", '.my_listing_button', function() {
-    propertyListings.clearListings();
+    itemListings.clearListings();
     getAllListings(`owner_id=${currentUser.id}`)
       .then(function(json) {
-        propertyListings.addProperties(json.properties);
+        itemListings.addItems(json.properties);
         views_manager.show('listings');
     });
   });
 
   $("header").on("click", '.home', function() {
-    propertyListings.clearListings();
+    itemListings.clearListings();
     getAllListings()
       .then(function(json) {
-        propertyListings.addProperties(json.properties);
+        itemListings.addItems(json.properties);
         views_manager.show('listings');
     });
   });

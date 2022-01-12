@@ -6,13 +6,13 @@ $(() => {
 
   window.views_manager.show = function(item) {
     $newPropertyForm.detach();
-    $propertyListings.detach();
+    $itemListings.detach();
     $searchPropertyForm.detach();
 
 
     switch (item) {
       case 'listings':
-        $propertyListings.appendTo($main);
+        $itemListings.appendTo($main);
         break;
       case 'newProperty':
         $newPropertyForm.appendTo($main);

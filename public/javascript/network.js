@@ -10,19 +10,20 @@ function getAllListings(params) {
 
 // displays all items in the homepage
 function getAllItems() {
-  let url = "/";
+  let url = "/items";
+  console.log('Im inside getAllItems');
   return $.ajax({
     url,
   });
 }
 
-const submitProperty = function(data) {
-  return $.ajax({
-    method: "POST",
-    url: "/api/properties",
-    data,
-  });
-}
+// const submitProperty = function(data) {
+//   return $.ajax({
+//     method: "POST",
+//     url: "/api/properties",
+//     data,
+//   });
+// }
 
 // $.ajax({
 //   url: 'test.html',

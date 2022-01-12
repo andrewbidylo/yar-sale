@@ -1,31 +1,36 @@
 $(() => {
-  window.propertyListing = {};
+  window.itemListing = {};
 
-  function createListing(property, isReservation) {
+  function createListing(item) {
     return `
-    <article class="property-listing">
-        <section class="property-listing__preview-image">
-          <img src="${property.thumbnail_photo_url}" alt="house">
+    <article class="item-listing">
+        <section class="item-listing__preview-image">
+          <img src="${item.thumbnail_photo_url}" alt="house">
         </section>
-        <section class="property-listing__details">
-          <h3 class="property-listing__title">${property.title}</h3>
-          <ul class="property-listing__details">
-            <li>number_of_bedrooms: ${property.number_of_bedrooms}</li>
-            <li>number_of_bathrooms: ${property.number_of_bathrooms}</li>
-            <li>parking_spaces: ${property.parking_spaces}</li>
-          </ul>
-          ${isReservation ?
-            `<p>${moment(property.start_date).format('ll')} - ${moment(property.end_date).format('ll')}</p>`
+        <section class="item-listing__details">
+          <h3 class="item-listing__title">${item.title}</h3>
+          <ul class="item-listing__details">
+            <li>location: ${item.location}</li>
+            <li>description: ${item.description}</li>
+            <li>date_posted: ${item.date_posted}</li>
+            <li>date_sold: ${item.date_sold ?
+            `<p>SOLD!</p>`
             : ``}
-          <footer class="property-listing__footer">
-            <div class="property-listing__rating">${Math.round(property.average_rating * 100) / 100}/5 stars</div>
-            <div class="property-listing__price">$${property.cost_per_night/100.0}/night</div>
+            </li>
+          </ul>
+          <footer class="item-listing__footer">
+          <li>price: ${item.price}</li>
           </footer>
         </section>
       </article>
     `
   }
 // adding key/value pair
-  window.propertyListing.createListing = createListing;
+  window.itemListing.createListing = createListing;
 
 });
+
+
+// ${isReservation ?
+//   `<p>${moment(property.start_date).format('ll')} - ${moment(property.end_date).format('ll')}</p>`
+//   : ``}
