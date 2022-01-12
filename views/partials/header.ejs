@@ -1,0 +1,16 @@
+
+<header class="header-container">
+  <span id="logo" onclick="window.location.href='/items'">YAR SALE</span>
+  <form action="/items" method="get" id="search-property-form" class="search-property-form">
+    <div class="search-property-form__field-wrapper">
+      <label for="search-property-form__minimum-price">Minimum Cost</label>
+      <input type="number" name="minimum_price" placeholder="Minimum Cost" id="search-property-form__minimum-price-per-night">
+      <label for="search-property-form__maximum-price">Maximum Cost</label>
+      <input type="number" name="maximum_price" placeholder="Maximum Cost" id="search-property-form__maximum-price-per-night">
+    </div>
+    <div class="search-property-form__field-wrapper">
+        <button>Search</button>
+    </div>
+  </form>
+  <button onclick="window.location.href='/favourites'">My Favourites</button>
+</header>

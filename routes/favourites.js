@@ -5,8 +5,42 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
-// const express = require('express');
-// const router  = express.Router();
+const express = require('express');
+const router  = express.Router();
+
+
+module.exports = (db) => {
+
+  router.get("/", (req, res) => {
+    // const id = req.session.user_id;
+    // const user = users[id];
+    // console.log('ID:', id);
+    // console.log('U:', user);
+    let query = `
+    SELECT items.*
+    FROM items
+    JOIN favourites ON item_id = items.id
+    JOIN users ON owner_id = users.id
+    WHERE user_id = 1
+    ORDER BY items.date_posted, items.title;`;
+
+    db.query(query)
+      .then(data => {
+        const items = data.rows;
+        res.render('favourites', { items });
+        console.log('FAVE ITEMS LIST');
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
+return router;
+
+};
+
 
 // module.exports = (db) => {
 //   router.get("/", (req, res) => {

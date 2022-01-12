@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Home Page</title>
+  <title>My Favourites Page</title>
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -16,9 +16,7 @@
 
 <body>
 
-
 <%- include('partials/header') %>
-
 
     <% for(let item of items) { %>
 
@@ -34,7 +32,6 @@
             <li>date_posted: <%= item.date_posted %></li>
             <li>date_sold: <%= item.date_sold ? `<p>SOLD!</p>` : `` %></li>
             <li>price: <%= item.price  %></li>
-            <li>ADD TO Favourites</li>
           </ul>
         </section>
       </article>

@@ -1,21 +1,23 @@
 // Client facing scripts here
 
-$(document).ready(()=>{
+// $(document).ready(()=>{
 
 
-    let url = "/items";
-    console.log('Im inside getAllItems');
-    return $.ajax({
-      url,
-    }).done( data => {
-      console.log(data);
-    })
+//     let url = "/items";
+//     console.log('Im inside getAllItems');
+//     return $.ajax({
+//       url,
+//     }).done( data => {
+//       console.log(data);
+//     })
 
-
-
-
-
-
+    // let url = "/favourites";
+    // console.log('Im inside favs');
+    // return $.ajax({
+    //   url,
+    // }).done( data => {
+    //   console.log(data);
+    // })
 
   // getAllItems()
   //     .then(function(json) {
@@ -25,7 +27,7 @@ $(document).ready(()=>{
 
 //})
 
-});
+// });
 
 
 

@@ -46,7 +46,7 @@ module.exports = (db) => {
     db.query(queryString, queryParams)
       .then(data => {
         const items = data.rows;
-        console.log(items);
+        //console.log(items);
         res.render('index', { items });
         //res.send({ items });
       })
@@ -101,27 +101,31 @@ module.exports = (db) => {
 
   //--GET ALL FAVES--// in user.js file move
 
-  router.get("/:id/favourites", (req, res) => {
-    let query = `
-    SELECT items.*
-    FROM items
-    JOIN favourites ON item_id = items.id
-    JOIN users ON owner_id = users.id
-    WHERE user_id = 1
-    ORDER BY items.date_posted, items.title;`;
+  // router.get("/favourites", (req, res) => {
+  //   const id = req.session.user_id;
+  //   const user = users[id];
+  //   console.log('ID:', id);
+  //   console.log('U:', user);
+  //   let query = `
+  //   SELECT items.*
+  //   FROM items
+  //   JOIN favourites ON item_id = items.id
+  //   JOIN users ON owner_id = users.id
+  //   WHERE user_id = 1
+  //   ORDER BY items.date_posted, items.title;`;
 
-    db.query(query)
-      .then(data => {
-        const items = data.rows;
-        res.send({ items });
-        console.log('FAVE ITEMS LIST');
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
+  //   db.query(query)
+  //     .then(data => {
+  //       const items = data.rows;
+  //       res.render('favourites', { items });
+  //       console.log('FAVE ITEMS LIST');
+  //     })
+  //     .catch(err => {
+  //       res
+  //         .status(500)
+  //         .json({ error: err.message });
+  //     });
+  // });
 
   //--ADD TO FAVES--// in favourites.js, pass favourite obj data into body:
 
