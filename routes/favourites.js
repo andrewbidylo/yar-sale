@@ -12,16 +12,13 @@ const router  = express.Router();
 module.exports = (db) => {
 
   router.get("/", (req, res) => {
-    // const id = req.session.user_id;
-    // const user = users[id];
-    // console.log('ID:', id);
-    // console.log('U:', user);
+    const id = req.session.user_id;
     let query = `
     SELECT items.*
     FROM items
     JOIN favourites ON item_id = items.id
     JOIN users ON owner_id = users.id
-    WHERE user_id = 1
+    WHERE user_id = ${id}
     ORDER BY items.date_posted, items.title;`;
 
     db.query(query)
