@@ -11,14 +11,14 @@ const router  = express.Router();
 
 module.exports = (db) => {
 
-//--Login--//
+// //--Login--//
 
-  router.get('/login/:id', (req, res) => {
-  const userType = req.params.id === 1 ? 'buyer' : 'seller';
-  req.session.user_id = req.params.id;
-  req.session.user_type = userType;
-  res.redirect('/');
-});
+//   router.get('/login/:id', (req, res) => {
+//   const userType = req.params.id === 1 ? 'buyer' : 'seller';
+//   req.session.user_id = req.params.id;
+//   req.session.user_type = userType;
+//   res.redirect('/');
+// });
 
   //--GET ALL ITEMS--//
 
