@@ -45,9 +45,10 @@ module.exports = (db) => {
 
     db.query(queryString, queryParams)
       .then(data => {
+        const id = req.session.user_id;
         const items = data.rows;
-        //console.log(items);
-        res.render('index', { items });
+ 
+        res.render('index', { items, id});
         //res.send({ items });
       })
       .catch(err => {
@@ -57,10 +58,53 @@ module.exports = (db) => {
       });
   });
 
+
+  router.post("/new", (req, res) => {
+    // const params = req.query.params;
+    const owner_id = req.session.userId;
+    const title = req.body.title;
+    const location = req.body.location;
+    const price = parseInt(req.body.price);
+
+    const description = req.body.description;
+    const thumbnail_photo_url = req.body.thumbnail_photo_url;
+
+    console.log(req.body,'REQ.SESSION>>>>>', req.session)
+    let query = `
+    INSERT INTO items (owner_id, title, location, price, description, thumbnail_photo_url, date_posted)
+    VALUES (${owner_id}, '${title}', '${location}', ${price}, '${description}', '${thumbnail_photo_url}', '2022-01-10')`;
+    console.log(query)
+
+
+    // VALUES (${owner_id}, ${title}, ${location}, ${price}, ${description}, ${thumbnail_photo_url}, GETDATE())`
+    // VALUES (2, 'HELLLLO', 'Toronto', 20000, 'message', 'https://i.imgur.com/96St5p8.jpeg', '2022-01-10')`;
+    // GETDATE()
+    // ${thumbnail_photo_url}
+    // thumbnail_photo_url,
+
+
+    db.query(query)
+      .then(data => {
+        // const items = data.rows;
+        // res.send({ items });
+        res.redirect("/items");
+        console.log('ADD NEW FAVE - POST');
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
+
+  router.get("/new",(req,res) => {
+    res.render('new_item');
+  });
   //--GET ONE ITEM--//
 
   router.get("/:id", (req, res) => {
-    const id = req.params.id
+    const id = req.params.id;
     let query = `
     SELECT *
     FROM items
@@ -69,6 +113,7 @@ module.exports = (db) => {
       .then(data => {
         const items = data.rows;
         res.send({ items });
+
       })
       .catch(err => {
         res
@@ -169,28 +214,46 @@ module.exports = (db) => {
 
   //--GET ADD NEW ITEM FORM--//
 
-  router.get("/new") //user id passed through body
+
+  //user id passed through body
   //res.render form
 
   //--ADD NEW ITEM--//
 
-  router.post("/new", (req, res) => {
-    let query = `
-    INSERT INTO items (owner_id, title, location, price, description, thumbnail_photo_url, date_posted) VALUES (2, 'CELL2', 'Toronto', 20000, 'message', 'https://i.imgur.com/96St5p8.jpeg', '2022-01-10');`;
+  // router.post("/new", (req, res) => {
+  //   let query = `
+  //   INSERT INTO items (owner_id, title, location, price, description, thumbnail_photo_url, date_posted) VALUES (2, 'CELL2', 'Toronto', 20000, 'message', 'https://i.imgur.com/96St5p8.jpeg', '2022-01-10');`;
 
-    db.query(query)
-      .then(data => {
-        const items = data.rows;
-        res.send({ items });
-        console.log('ADD NEW FAVE - POST');
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
+  //   db.query(query)
+  //     .then(data => {
+  //       const items = data.rows;
+  //       res.send({ items });
+  //       console.log('ADD NEW FAVE - POST');
+  //     })
+  //     .catch(err => {
+  //       res
+  //         .status(500)
+  //         .json({ error: err.message });
+  //     });
+  // });
 
+
+
+
+//   router.post('/properties', (req, res) => {
+//     const userId = req.session.userId;
+//     database.addProperty({...req.body, owner_id: userId})
+//       .then(property => {
+//         res.send(property);
+//       })
+//       .catch(e => {
+//         console.error(e);
+//         res.send(e)
+//       });
+//   });
+
+//   return router;
+// }
   //--DELETE ITEM FROM LISTINGS--//
 
   //router.delete
@@ -216,3 +279,4 @@ module.exports = (db) => {
 
   return router;
 };
+

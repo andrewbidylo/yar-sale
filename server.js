@@ -51,6 +51,7 @@ app.use(express.static("public"));
 const loginRoutes = require("./routes/login");
 const itemsRoutes = require("./routes/items");
 const favouritesRoutes = require("./routes/favourites");
+const signoutRoutes = require("./routes/signout");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -58,6 +59,7 @@ const favouritesRoutes = require("./routes/favourites");
 app.use("/login", loginRoutes(db));
 app.use("/items", itemsRoutes(db));
 app.use("/favourites", favouritesRoutes(db));
+app.use("/signout", signoutRoutes(db));
 
 
 

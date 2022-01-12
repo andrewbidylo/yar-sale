@@ -1,5 +1,5 @@
-
 <header class="header-container">
+
   <span id="logo" onclick="window.location.href='/items'">YAR SALE</span>
   <form action="/items" method="get" id="search-property-form" class="search-property-form">
     <div class="search-property-form__field-wrapper">
@@ -12,5 +12,12 @@
         <button>Search</button>
     </div>
   </form>
-  <button onclick="window.location.href='/favourites'">My Favourites</button>
+    <% if (id == 1) { %>
+    <button onclick="window.location.href='/favourites'">My Favourites</button>
+  <% } else if (id == 2) { %>
+    <button onclick="window.location.href='/items/new'">Add Item</button>
+  <% } %>
+  <button onclick="window.location.href='/signout'">Sign Out</button>
 </header>
+
+
