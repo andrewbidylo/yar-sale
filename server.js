@@ -52,7 +52,7 @@ const loginRoutes = require("./routes/login");
 const itemsRoutes = require("./routes/items");
 const favouritesRoutes = require("./routes/favourites");
 const signoutRoutes = require("./routes/signout");
-
+const homeRoutes = require("./routes/home");
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // app.use("/users", usersRoutes(db));
@@ -60,7 +60,7 @@ app.use("/login", loginRoutes(db));
 app.use("/items", itemsRoutes(db));
 app.use("/favourites", favouritesRoutes(db));
 app.use("/signout", signoutRoutes(db));
-
+app.use("/", homeRoutes(db));
 
 
 

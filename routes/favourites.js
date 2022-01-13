@@ -24,7 +24,7 @@ module.exports = (db) => {
     db.query(query)
       .then(data => {
         const items = data.rows;
-        res.render('favourites', { items });
+        res.render('favourites', { items, id });
         console.log('FAVE ITEMS LIST');
       })
       .catch(err => {

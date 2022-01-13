@@ -9,9 +9,12 @@
   <link rel="stylesheet" href="/styles/main.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
+  <!-- Fonts Awesome -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" /> -->
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <!-- <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script> -->
-  <!-- <script type="text/javascript" src="/scripts/app.js"></script> -->
+  <script type="text/javascript" src="/scripts/app.js"></script>
 </head>
 
 <body>
@@ -19,12 +22,14 @@
 
 <%- include('partials/header') %>
 
-
     <% for(let item of items) { %>
 
       <article class="item-listing">
         <section class="item-listing__preview-image">
+<!-- <img class="item-img" id="<%= item.id %>" src="<%= item.thumbnail_photo_url %>" alt="house"> -->
+        <a href="/items/<%= item.id %>">
           <img src="<%= item.thumbnail_photo_url %>" alt="house">
+        </a>
         </section>
         <section class="item-listing__details">
           <h3 class="item-listing__title"><%= item.title %></h3>
@@ -34,13 +39,25 @@
             <li>date_posted: <%= item.date_posted %></li>
             <li>date_sold: <%= item.date_sold ? `<p>SOLD!</p>` : `` %></li>
             <li>price: <%= item.price  %></li>
-            <li>ADD TO Favourites</li>
+            <% if (id == 1) { %>
+            <div class="heart">
+              <button>Add To Favourites</button>
+              <!-- <i class="fas fa-heart"></i> -->
+            </div>
+            <% } %>
+
           </ul>
         </section>
       </article>
 
     <% } %>
 
+<!-- <script>
+$('.item-img').click(function() {
+  const id = $(this).attr('id')
+  window.location.href="/items/" + id;
+})
+</script> -->
 
 
 </body>

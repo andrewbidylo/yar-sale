@@ -47,7 +47,7 @@ module.exports = (db) => {
       .then(data => {
         const id = req.session.user_id;
         const items = data.rows;
- 
+
         res.render('index', { items, id});
         //res.send({ items });
       })
@@ -57,7 +57,25 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+  router.get("/:id", (req, res) => {
+    const id = parseInt(req.session.user_id);
+    const itemId = parseInt(req.params.id);
+    let query = `
+    SELECT *
+    FROM items
+    WHERE id = ${itemId};`;
 
+    db.query(query)
+      .then(data => {
+        const items = data.rows[0];
+        res.render('item_details', {items, itemId, id});
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
 
   router.post("/new", (req, res) => {
     // const params = req.query.params;
@@ -69,24 +87,13 @@ module.exports = (db) => {
     const description = req.body.description;
     const thumbnail_photo_url = req.body.thumbnail_photo_url;
 
-    console.log(req.body,'REQ.SESSION>>>>>', req.session)
+
     let query = `
     INSERT INTO items (owner_id, title, location, price, description, thumbnail_photo_url, date_posted)
-    VALUES (${owner_id}, '${title}', '${location}', ${price}, '${description}', '${thumbnail_photo_url}', '2022-01-10')`;
-    console.log(query)
-
-
-    // VALUES (${owner_id}, ${title}, ${location}, ${price}, ${description}, ${thumbnail_photo_url}, GETDATE())`
-    // VALUES (2, 'HELLLLO', 'Toronto', 20000, 'message', 'https://i.imgur.com/96St5p8.jpeg', '2022-01-10')`;
-    // GETDATE()
-    // ${thumbnail_photo_url}
-    // thumbnail_photo_url,
-
+    VALUES (${owner_id}, '${title}', '${location}', ${price}, '${description}', '${thumbnail_photo_url}', CURRENT DATE)`;
 
     db.query(query)
       .then(data => {
-        // const items = data.rows;
-        // res.send({ items });
         res.redirect("/items");
         console.log('ADD NEW FAVE - POST');
       })
@@ -99,28 +106,38 @@ module.exports = (db) => {
 
 
   router.get("/new",(req,res) => {
-    res.render('new_item');
+    const id = req.session.user_id;
+
+    res.render('new_item', {id});
   });
+
+
+
   //--GET ONE ITEM--//
 
-  router.get("/:id", (req, res) => {
-    const id = req.params.id;
-    let query = `
-    SELECT *
-    FROM items
-    WHERE id = 1;`;
-    db.query(query)
-      .then(data => {
-        const items = data.rows;
-        res.send({ items });
+//   router.get("/:id", (req, res) => {
+//     const userId = req.session.user_id;
+//     const id = req.params.id;
+// console.log(req.params)
+//     let query = `
+//     SELECT *
+//     FROM items
+//     WHERE id = ${id};`;
 
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
+//     db.query(query)
+//       .then(data => {
+
+//         const items = data.rows;
+
+//         res.send({items, userId});
+
+//       })
+//       .catch(err => {
+//         res
+//           .status(500)
+//           .json({ error: err.message });
+//       });
+//   });
 
   //--GET ITEM BY PRICE--//
 
@@ -174,16 +191,18 @@ module.exports = (db) => {
 
   //--ADD TO FAVES--// in favourites.js, pass favourite obj data into body:
 
-  router.post("/favourites", (req, res) => {
+  router.post("/favourites/:id", (req, res) => {
+    const id = parseInt(req.session.user_id);
+    const itemId = parseInt(req.params.id);
+
     let query = `
     INSERT INTO favourites(user_id, item_id)
-    VALUES ($1, $2);`;
+    VALUES (${id}, ${itemId});`;
 
-    db.query(query, queryParams)
+    db.query(query)
       .then(data => {
-        const items = data.rows;
-        res.send({ items });
-        console.log('ADD NEW FAVE');
+        // res.redirect('items');
+
       })
       .catch(err => {
         res
@@ -191,6 +210,8 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+
 
 //--DELETE FROM FAVES--//
 
