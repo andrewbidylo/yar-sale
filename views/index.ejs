@@ -41,7 +41,9 @@
             <li>price: <%= item.price  %></li>
             <% if (id == 1) { %>
             <div class="heart">
-              <button>Add To Favourites</button>
+              <form action="/favourites/<%= item.id %>" method="POST">
+                <button>Add To Favourites</button>
+              </form>
               <!-- <i class="fas fa-heart"></i> -->
             </div>
             <% } %>

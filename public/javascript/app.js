@@ -11,13 +11,15 @@
 
 
 
-$('.heart').on('click', function(event) {
-  event.preventDefault(); //prevents browser page refresh
-  console.log(event)
-  $.ajax('/favourites/:id', { method: 'POST', data: {itemId: id} })
-    .then(function(res) {});
+// $('.heart').on('click', function(event) {
+//   event.preventDefault(); //prevents browser page refresh
+//   console.log(event)
+//   $.ajax('/favourites/:id', { method: 'POST', data: {itemId: id} })
+//     .then(function(res) {});
 
-});
+// });
+
+
 
 
 

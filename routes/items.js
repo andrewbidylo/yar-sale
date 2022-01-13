@@ -63,12 +63,16 @@ module.exports = (db) => {
     let query = `
     SELECT *
     FROM items
-    WHERE id = ${itemId};`;
+    JOIN users ON owner_id = users.id
+    WHERE items.id = ${itemId}
+
+    ;`;
 
     db.query(query)
       .then(data => {
         const items = data.rows[0];
-        res.render('item_details', {items, itemId, id});
+        const email = data.rows[0].email;
+        res.render('item_details', {items, itemId, id, email});
       })
       .catch(err => {
         res
@@ -103,6 +107,37 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+  router.post("/sold", (req, res) => {
+    // const params = req.query.params;
+    const itemId = parseInt(req.params.id);
+    const owner_id = parseInt(req.session.userId);
+    const title = req.body.title;
+    const location = req.body.location;
+    const price = parseInt(req.body.price);
+
+    const description = req.body.description;
+    const thumbnail_photo_url = req.body.thumbnail_photo_url;
+
+
+    let query = `
+     UPDATE items 
+     SET date_sold = '2000-10-20'
+     WHERE items.id = ${itemId} AND owner_id = ${owner_id};`;
+
+    db.query(query)
+      .then(data => {
+        // res.redirect("/items");
+        // console.log('ADD NEW FAVE - POST');
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
+  
 
 
   router.get("/new",(req,res) => {
@@ -191,25 +226,6 @@ module.exports = (db) => {
 
   //--ADD TO FAVES--// in favourites.js, pass favourite obj data into body:
 
-  router.post("/favourites/:id", (req, res) => {
-    const id = parseInt(req.session.user_id);
-    const itemId = parseInt(req.params.id);
-
-    let query = `
-    INSERT INTO favourites(user_id, item_id)
-    VALUES (${id}, ${itemId});`;
-
-    db.query(query)
-      .then(data => {
-        // res.redirect('items');
-
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
 
 
 
