@@ -48,7 +48,7 @@
 
 
               <% } else if (id == 2) {%>
-                <form action="/items/sold" method="POST">
+                <form action="/items/<%= items.id %>/sold" method="POST">
                   <!-- <input type="radio" id="html" name="fav_language" value="HTML"> -->
                   <button for="html">SOLD</button>
                   </form>
