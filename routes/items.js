@@ -20,6 +20,38 @@ module.exports = (db) => {
 //   res.redirect('/');
 // });
 
+router.post("/new", (req, res) => {
+  // const params = req.query.params;
+  const owner_id = req.session.user_id;
+  const title = req.body.title;
+  const location = req.body.location;
+  const price = parseInt(req.body.price);
+  const description = req.body.description;
+  const thumbnail_photo_url = req.body.thumbnail_photo_url;
+
+
+  let query = `
+  INSERT INTO items (owner_id, title, location, price, description, thumbnail_photo_url, date_posted)
+  VALUES (${owner_id}, '${title}', '${location}', ${price}, '${description}', '${thumbnail_photo_url}', CURRENT_DATE)`;
+  // VALUES (${owner_id}, '${title}', '${location}', ${price}, '${description}', '${thumbnail_photo_url}', CURRENT DATE)`;
+  db.query(query)
+    .then(data => {
+      res.redirect("/items");
+      console.log('ADD NEW FAVE - POST');
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+});
+
+router.get("/new",(req,res) => {
+  const id = req.session.user_id;
+
+  res.render('new_item', {id});
+});
+
   //--GET ALL ITEMS--//
 
   router.get("/", (req, res) => {
@@ -57,6 +89,7 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
   router.get("/:id", (req, res) => {
     const id = parseInt(req.session.user_id);
     const itemId = parseInt(req.params.id);
@@ -81,32 +114,7 @@ module.exports = (db) => {
       });
   });
 
-  router.post("/new", (req, res) => {
-    // const params = req.query.params;
-    const owner_id = req.session.userId;
-    const title = req.body.title;
-    const location = req.body.location;
-    const price = parseInt(req.body.price);
 
-    const description = req.body.description;
-    const thumbnail_photo_url = req.body.thumbnail_photo_url;
-
-
-    let query = `
-    INSERT INTO items (owner_id, title, location, price, description, thumbnail_photo_url, date_posted)
-    VALUES (${owner_id}, '${title}', '${location}', ${price}, '${description}', '${thumbnail_photo_url}', CURRENT DATE)`;
-
-    db.query(query)
-      .then(data => {
-        res.redirect("/items");
-        console.log('ADD NEW FAVE - POST');
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
 
   router.post("/sold", (req, res) => {
     // const params = req.query.params;
@@ -121,7 +129,7 @@ module.exports = (db) => {
 
 
     let query = `
-     UPDATE items 
+     UPDATE items
      SET date_sold = '2000-10-20'
      WHERE items.id = ${itemId} AND owner_id = ${owner_id};`;
 
@@ -136,17 +144,6 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
-
-  
-
-
-  router.get("/new",(req,res) => {
-    const id = req.session.user_id;
-
-    res.render('new_item', {id});
-  });
-
-
 
   //--GET ONE ITEM--//
 
