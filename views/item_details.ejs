@@ -30,14 +30,14 @@
         <section class="item-listing__details">
           <h3 class="item-listing__title"><%= items.title %></h3>
           <ul class="item-listing__details">
-            <li>location: <%= items.location %></li>
-            <li>description: <%= items.description %></li>
-            <li>date_posted: <%= items.date_posted %></li>
-            <li>date_sold: <%= items.date_sold ? `<p>SOLD!</p>` : `` %></li>
-            <li>price: <%= items.price  %></li>
+            <li><%= items.location %></li>
+            <li><%= items.description %></li>
+            <li>Date Posted: <%= items.date_posted %></li>
+
+            <li>$<%= items.price  %></li>
 
 
-
+            <%console.log(itemId)%>
             <% if (id == 1) { %>
               <div class="heart">
                 <button>Add To Favourites</button>
@@ -48,11 +48,17 @@
 
 
               <% } else if (id == 2) {%>
-                <form action="/items/<%= items.id %>/sold" method="POST">
-                  <!-- <input type="radio" id="html" name="fav_language" value="HTML"> -->
-                  <button for="html">SOLD</button>
-                  </form>
+
+                 <% if (items.date_sold) { %>
+                 <p>SOLD!</p>
+                  <% } else { %>
+                    <form action="/items/<%= itemId %>/sold" method="POST">
+                      <!-- <input type="radio" id="html" name="fav_language" value="HTML"> -->
+                      <button for="html">SOLD</button>
+                      </form>
                   <% } %>
+              <% } %>
+
           </ul>
         </section>
       </article>

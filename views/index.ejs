@@ -35,9 +35,9 @@
           <h3 class="item-listing__title"><%= item.title %></h3>
           <ul class="item-listing__details">
             <li>location: <%= item.location %></li>
-            <li>description: <%= item.description %></li>
+            <!-- <li>description: <%= item.description %></li> -->
             <li>date_posted: <%= item.date_posted %></li>
-            <li>date_sold: <%= item.date_sold ? `<p>SOLD!</p>` : `` %></li>
+            <li><%= item.date_sold ? `SOLD!` : `` %></li>
             <li>price: <%= item.price  %></li>
             <% if (id == 1) { %>
             <div class="heart">
