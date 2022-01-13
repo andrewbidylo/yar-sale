@@ -118,16 +118,9 @@ router.get("/new",(req,res) => {
 
   router.post("/sold", (req, res) => {
     // const params = req.query.params;
-    const itemId = parseInt(req.params.id);
-    const owner_id = parseInt(req.session.userId);
-    const title = req.body.title;
-    const location = req.body.location;
-    const price = parseInt(req.body.price);
-
-    const description = req.body.description;
-    const thumbnail_photo_url = req.body.thumbnail_photo_url;
-
-
+    const itemId = req.params.id;
+    const owner_id = parseInt(req.session.user_id);
+console.log(itemId, owner_id)
     let query = `
      UPDATE items
      SET date_sold = '2000-10-20'
