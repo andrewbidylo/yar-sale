@@ -46,6 +46,12 @@
               </form>
               <!-- <i class="fas fa-heart"></i> -->
             </div>
+            <% } else if (id == 2) { %>
+              <div class="delete">
+                <form action="/items/<%= item.id %>/delete" method="POST">
+                  <button>delete</button>
+                </form>
+              </div>
             <% } %>
 
           </ul>

@@ -33,7 +33,6 @@ router.post("/new", (req, res) => {
   let query = `
   INSERT INTO items (owner_id, title, location, price, description, thumbnail_photo_url, date_posted)
   VALUES (${owner_id}, '${title}', '${location}', ${price}, '${description}', '${thumbnail_photo_url}', CURRENT_DATE)`;
-  // VALUES (${owner_id}, '${title}', '${location}', ${price}, '${description}', '${thumbnail_photo_url}', CURRENT DATE)`;
   db.query(query)
     .then(data => {
       res.redirect("/items");
@@ -284,15 +283,20 @@ console.log(itemId, owner_id)
   //--DELETE ITEM FROM LISTINGS--//
 
   //router.delete
-  router.delete("/:id", (req, res) => {
+  router.post("/:id/delete", (req, res) => {
+    // const id = parseInt(req.session.user_id);
+    const itemId = req.params.id;
+    const owner_id = parseInt(req.session.user_id);
+    console.log(itemId, owner_id);
     let query = `
     DELETE FROM items
-    WHERE items.id = 12;`;
+    WHERE items.id = ${itemId};`;
 
     db.query(query)
       .then(data => {
         const items = data.rows;
-        res.send({ items });
+        // res.send({ items });
+        res.redirect("/items");
         console.log('DELETE ITEM FROM LISTINGS - POST');
       })
       .catch(err => {
