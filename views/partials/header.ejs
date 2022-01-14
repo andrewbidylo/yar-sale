@@ -1,23 +1,31 @@
 <header class="header-container">
 
-  <span id="logo" onclick="window.location.href='/items'">YAR SALE</span>
-  <form action="/items" method="get" id="search-property-form" class="search-property-form">
-    <div class="search-property-form__field-wrapper">
-      <label for="search-property-form__minimum-price">Minimum Cost</label>
-      <input type="number" name="minimum_price" placeholder="Minimum Cost" id="search-property-form__minimum-price-per-night">
-      <label for="search-property-form__maximum-price">Maximum Cost</label>
-      <input type="number" name="maximum_price" placeholder="Maximum Cost" id="search-property-form__maximum-price-per-night">
+  <span id="logo" onclick="window.location.href='/items'">
+    <img src='/images/yar_sale.png' alt="heart_unfav">
+  </span>
+  <div class='form_btns'>
+    <form action="/items" method="get" id="search-property-form" class="search-property-form">
+      <div class="search-property-form__field-wrapper">
+        <label for="search-property-form__minimum-price"></label>
+        <input type="number" name="minimum_price" placeholder="Minimum Cost" id="search-property-form__minimum-price-per-night">
+        <label for="search-property-form__maximum-price"></label>
+        <input type="number" name="maximum_price" placeholder="Maximum Cost" id="search-property-form__maximum-price-per-night">
+      </div>
+      <div class="search-property-form__field-wrapper">
+          <button>Search</button>
+      </div>
+    </form>
+    <div>
+      <% if (id == 1) { %>
+        <button onclick="window.location.href='/favourites'">My Favourites</button>
+      <% } else if (id == 2) { %>
+        <button onclick="window.location.href='/items/new'">Add Item</button>
+      <% } %>
+      <button onclick="window.location.href='/signout'">Sign Out</button>
     </div>
-    <div class="search-property-form__field-wrapper">
-        <button>Search</button>
-    </div>
-  </form>
-    <% if (id == 1) { %>
-    <button onclick="window.location.href='/favourites'">My Favourites</button>
-  <% } else if (id == 2) { %>
-    <button onclick="window.location.href='/items/new'">Add Item</button>
-  <% } %>
-  <button onclick="window.location.href='/signout'">Sign Out</button>
+
+  </div>
+
 </header>
 
 

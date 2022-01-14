@@ -7,14 +7,10 @@
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/main.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
-  <!-- Fonts Awesome -->
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" /> -->
+  <link rel="stylesheet" href="../images/" type="text/css" />
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <!-- <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script> -->
-  <script type="text/javascript" src="/scripts/app.js"></script>
+
 </head>
 
 <body>
@@ -26,7 +22,6 @@
 
       <article class="item-listing">
         <section class="item-listing__preview-image">
-<!-- <img class="item-img" id="<%= item.id %>" src="<%= item.thumbnail_photo_url %>" alt="house"> -->
         <a href="/items/<%= item.id %>">
           <img src="<%= item.thumbnail_photo_url %>" alt="house">
         </a>
@@ -34,18 +29,31 @@
         <section class="item-listing__details">
           <h3 class="item-listing__title"><%= item.title %></h3>
           <ul class="item-listing__details">
-            <li>location: <%= item.location %></li>
-            <!-- <li>description: <%= item.description %></li> -->
-            <li>date_posted: <%= item.date_posted %></li>
-            <li><%= item.date_sold ? `SOLD!` : `` %></li>
-            <li>price: <%= item.price  %></li>
+            <li><%= item.location %></li>
+            <li type="date" >date_posted: <%= item.date_posted %></li>
+          <% if(item.date_sold ){ %>
+            <img class='sold' src='/images/sold.png' alt="sold">
+                 <%}%>
+            <li><b>$<%= item.price  %></b></li>
             <% if (id == 1) { %>
-            <div class="heart">
-              <form action="/favourites/<%= item.id %>" method="POST">
-                <button>Add To Favourites</button>
-              </form>
-              <!-- <i class="fas fa-heart"></i> -->
-            </div>
+              <%  if (item.item_id){%>
+                <div class="heart">
+                  <form action="/favourites/<%= item.id %>" method="POST">
+                  <button class='fav_button'>
+                    <img src='/images/heart_fav.png' alt="heart_unfav">
+                  </button>
+                  </form>
+                </div>
+            <%  } else {%>
+                <div class="heart">
+                  <form action="/favourites/<%= item.id %>" method="POST">
+                  <button class='fav_button'>
+                    <img src='/images/heart_unfav.png' alt="heart_unfav">
+                  </button>
+                  </form>
+                </div>
+                <%  }%>
+
             <% } else if (id == 2) { %>
               <div class="delete">
                 <form action="/items/<%= item.id %>/delete" method="POST">
@@ -59,17 +67,6 @@
       </article>
 
     <% } %>
-
-<!-- <script>
-$('.item-img').click(function() {
-  const id = $(this).attr('id')
-  window.location.href="/items/" + id;
-})
-</script> -->
-
-
 </body>
-
-
 </html>
 

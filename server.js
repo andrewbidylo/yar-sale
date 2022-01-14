@@ -62,13 +62,7 @@ app.use("/favourites", favouritesRoutes(db));
 app.use("/signout", signoutRoutes(db));
 app.use("/", homeRoutes(db));
 
-
-
 // Note: mount other resources here, using the same pattern above
-
-//const DataHelpers = require("./lib/data-helpers.js")(db);
-//const tweetsRoutes = require("./routes/tweets")(DataHelpers);
-//app.use("/tweets", tweetsRoutes);
 
 // Home page
 // Warning: avoid creating more routes in this file!

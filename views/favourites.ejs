@@ -7,41 +7,36 @@
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/main.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <!-- <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script> -->
-  <!-- <script type="text/javascript" src="/scripts/app.js"></script> -->
-</head>
 
+</head>
 <body>
 
 <%- include('partials/header') %>
+
+<H1>MY FAVOURITES</H1>
 
     <% for(let item of items) { %>
 
       <article class="item-listing">
         <section class="item-listing__preview-image">
+          <a href="/items/<%= item.id %>">
           <img src="<%= item.thumbnail_photo_url %>" alt="house">
+        </a>
         </section>
         <section class="item-listing__details">
           <h3 class="item-listing__title"><%= item.title %></h3>
           <ul class="item-listing__details">
             <li>location: <%= item.location %></li>
-            <li>description: <%= item.description %></li>
             <li>date_posted: <%= item.date_posted %></li>
-            <li>date_sold: <%= item.date_sold ? `<p>SOLD!</p>` : `` %></li>
+            <li><%= item.date_sold ? `SOLD!` : `` %></li>
             <li>price: <%= item.price  %></li>
           </ul>
         </section>
       </article>
-
     <% } %>
-
-
-
 </body>
-
-
 </html>
 

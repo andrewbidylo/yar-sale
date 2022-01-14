@@ -2,6 +2,7 @@
   font-family: "Inter", "-apple-system";
 }
 body {
+  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,8 +15,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #e7f6ff;
   border-radius: 20px;
-  max-width: 1080px;
-  margin: 50px auto;
+  margin: 20px auto;
 }
 
 code {
@@ -38,6 +38,12 @@ margin: 15px;
 .item-listing__preview-image{
 margin:15px;
 }
+
+.item-listing__title{
+  text-transform: uppercase;
+  margin-left: 37px;
+}
+
 img{
 
   width: 200px;
@@ -47,4 +53,68 @@ img{
 
   list-style-type: none;
 }
+}
+
+
+  .heart{
+    img{
+      height:20px;
+      width: 20px;
+    }
+    .fav_button{
+      background:none;
+      border: none;
+    }
+  }
+  .item-listing__details{
+    .sold{
+      height:40px;
+      width: 40px;
+    }
+  }
+
+  .header-container{
+display:flex;
+form {
+  display: flex;
+}
+img{
+  margin-right:20px ;
+  width:90px;
+  height: 90px;
+}
+  }
+.form_btns{
+  display: flex;
+  align-items: center;
+}
+
+.item-listing_1{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  height: 500px;
+  width: 800px;
+  position: relative;
+  background: #ffffff;
+  box-shadow: 0 10px 20px #999999;
+  margin: 15px;
+
+  .item-listing__preview-image{
+    margin:15px;
+    }
+.item-listing__title{
+      text-transform: uppercase;
+      margin-left: 38px;
+    }
+    img{
+
+      width: 400px;
+      height: 250px;
+    }
+    .item-listing__details{
+
+      list-style-type: none;
+    }
 }
