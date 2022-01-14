@@ -4,11 +4,12 @@ const router  = express.Router();
 
 module.exports = (db) => {
 
-//--Login--//
+//---SIGNOUT---//
 
   router.get('/', (req, res) => {
     req.session = null;
     res.redirect('/items');
   });
+
   return router;
 };

@@ -1,16 +1,10 @@
-/*
- * All routes for items are defined here
- * Since this file is loaded in server.js into api/items,
- *   these routes are mounted onto /items
- * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
- */
-
 const express = require('express');
 const router = express.Router();
 
 
 module.exports = (db) => {
 
+  //---ADD NEW ITEM FORM---//
 
   router.post("/new", (req, res) => {
     const owner_id = req.session.user_id;
@@ -19,8 +13,6 @@ module.exports = (db) => {
     const price = parseInt(req.body.price);
     const description = req.body.description;
     const thumbnail_photo_url = req.body.thumbnail_photo_url;
-
-
     let query = `
   INSERT INTO items (owner_id, title, location, price, description, thumbnail_photo_url, date_posted)
   VALUES (${owner_id}, '${title}', '${location}', ${price}, '${description}', '${thumbnail_photo_url}', CURRENT_DATE)`;
@@ -34,6 +26,8 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+  //---RENDER NEW ITEM PAGE---//
 
   router.get("/new", (req, res) => {
     const id = req.session.user_id;
@@ -69,7 +63,6 @@ module.exports = (db) => {
       .then(data => {
         const id = req.session.user_id;
         const items = data.rows;
-        const date = data.rows.date_posted;          console.log(items)
         res.render('index', { items, id });
       })
       .catch(err => {
@@ -79,6 +72,8 @@ module.exports = (db) => {
       });
   });
 
+  //---GET ITEM BY ID---//
+
   router.get("/:id", (req, res) => {
     const id = parseInt(req.session.user_id);
     const itemId = parseInt(req.params.id);
@@ -86,9 +81,7 @@ module.exports = (db) => {
     SELECT *
     FROM items
     JOIN users ON owner_id = users.id
-    WHERE items.id = ${itemId}
-
-    ;`;
+    WHERE items.id = ${itemId};`;
 
     db.query(query)
       .then(data => {
@@ -103,7 +96,7 @@ module.exports = (db) => {
       });
   });
 
-
+  //---MARK ITEM AS SOLD---//
 
   router.post("/:id/sold", (req, res) => {
     const itemId = req.params.id;
@@ -143,8 +136,6 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
-
-  //--RETURN ROUTER--//
 
   return router;
 };

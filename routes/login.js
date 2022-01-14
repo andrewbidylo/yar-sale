@@ -4,7 +4,7 @@ const router  = express.Router();
 
 module.exports = (db) => {
 
-//--Login--//
+  //---LOGIN---//
 
   router.get('/:id', (req, res) => {
     const userType = req.params.id === 1 ? 'buyer' : 'seller';

@@ -7,10 +7,7 @@
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/main.css" type="text/css" />
-
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 </head>
 <body>
 
@@ -19,7 +16,6 @@
 <H1>MY FAVOURITES</H1>
 
     <% for(let item of items) { %>
-
       <article class="item-listing">
         <section class="item-listing__preview-image">
           <a href="/items/<%= item.id %>">
@@ -29,10 +25,11 @@
         <section class="item-listing__details">
           <h3 class="item-listing__title"><%= item.title %></h3>
           <ul class="item-listing__details">
-            <li>location: <%= item.location %></li>
-            <li>date_posted: <%= item.date_posted %></li>
+            <div class="place-time">
+              <span><%= item.location %></span> | <span type="date" ><%= item.date_posted %></span>
+            </div>
             <li><%= item.date_sold ? `SOLD!` : `` %></li>
-            <li>price: <%= item.price  %></li>
+            <li><b>$<%= item.price  %></b></li>
           </ul>
         </section>
       </article>

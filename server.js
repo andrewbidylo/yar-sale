@@ -15,7 +15,7 @@ const { Pool } = require("pg");
 const dbParams = require("./lib/db.js");
 const db = new Pool(dbParams);
 db.connect(
-  console.log('db connected!')
+  console.log('DB connected!')
 );
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -73,5 +73,5 @@ app.use("/", homeRoutes(db));
 // });
 
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+  console.log(`App listening on port ${PORT}`);
 });

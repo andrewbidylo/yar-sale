@@ -1,15 +1,10 @@
-/*
- * All routes for Users are defined here
- * Since this file is loaded in server.js into api/users,
- *   these routes are mounted onto /users
- * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
- */
-
 const express = require('express');
 const router  = express.Router();
 
 
 module.exports = (db) => {
+
+  //---GET ALL FAVOURITES---//
 
   router.get("/", (req, res) => {
     const id = req.session.user_id;
@@ -33,6 +28,7 @@ module.exports = (db) => {
       });
   });
 
+  //---ADD ITEM TO FAVOURITES---//
 
   router.post("/:id", (req, res) => {
     const id = parseInt(req.session.user_id);
@@ -43,9 +39,9 @@ module.exports = (db) => {
     VALUES (${id}, ${itemId});`;
 
     db.query(query)
-    .then(data => {
-      res.redirect('/');
-    })
+      .then(data => {
+        res.redirect('/');
+      })
       .catch(err => {
         res
           .status(500)
@@ -54,5 +50,4 @@ module.exports = (db) => {
   });
 
   return router;
-
 };

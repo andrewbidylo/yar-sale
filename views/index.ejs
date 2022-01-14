@@ -10,16 +10,12 @@
   <link rel="stylesheet" href="../images/" type="text/css" />
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 </head>
-
 <body>
-
 
 <%- include('partials/header') %>
 
     <% for(let item of items) { %>
-
       <article class="item-listing">
         <section class="item-listing__preview-image">
         <a href="/items/<%= item.id %>">
@@ -29,8 +25,9 @@
         <section class="item-listing__details">
           <h3 class="item-listing__title"><%= item.title %></h3>
           <ul class="item-listing__details">
-            <li><%= item.location %></li>
-            <li type="date" >date_posted: <%= item.date_posted %></li>
+            <div class="place-time">
+            <span><%= item.location %></span> | <span type="date" ><%= item.date_posted %></span>
+          </div>
           <% if(item.date_sold ){ %>
             <img class='sold' src='/images/sold.png' alt="sold">
                  <%}%>
@@ -53,7 +50,6 @@
                   </form>
                 </div>
                 <%  }%>
-
             <% } else if (id == 2) { %>
               <div class="delete">
                 <form action="/items/<%= item.id %>/delete" method="POST">
@@ -61,12 +57,9 @@
                 </form>
               </div>
             <% } %>
-
           </ul>
         </section>
       </article>
-
     <% } %>
 </body>
 </html>
-
